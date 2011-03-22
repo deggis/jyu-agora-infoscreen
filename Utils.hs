@@ -1,6 +1,19 @@
 module Utils where
 import qualified Data.Text as T
 import Control.Monad
+import Data.Time.LocalTime
+
+-- |Add an hour to localtime
+addHour tod | todHour tod  == 23 = tod{todHour=0}
+            | otherwise          = tod{todHour=todHour tod + 1}
+
+-- |Add minutes to local time
+addMinutes n tod 
+    | n >= 60  = addMinutes (n-60) (addHour tod)
+    | remainder >= 0 = (addHour tod){todMin = remainder }
+    | otherwise      = tod{todMin = todMin tod + n}
+    where
+     remainder = todMin tod + n - 60
 
 -- |Convert Maybe into a Monad
 m2e :: (Monad m) => String -> Maybe a -> m a

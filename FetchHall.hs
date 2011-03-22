@@ -32,17 +32,18 @@ import Text.Blaze.Html5.Attributes (class_)
 import System.Console.CmdArgs
 
 data Format = Plain | Html deriving (Data,Typeable,Eq)
-data Filter  = All | Starting | Ongoing deriving (Data,Typeable,Eq) 
+--data Filter  = All | Starting | Ongoing deriving (Data,Typeable,Eq) 
 
 data Fetch = Fetch {account ::String
                    , n :: Int
                    , format :: Format
-                   , filtering :: Filter } deriving (Data,Typeable)
+                   , filtering :: Maybe RoughTime } deriving (Data,Typeable)
 
 arguments = cmdArgsMode $ Fetch {account = "" &= help "account"
                                 ,n      = 5  &= help "output N next events"
                                 ,format = Html &= help "output format (plain | html)"
-                                ,filtering = All &= help "filter events ( all | starting | ongoing)"
+                                ,filtering = Nothing
+                                    &= help "filter events ( ended | ongoing | starting | upcoming)"
                                 } &= summary "Fetch classroom reservations from Korppi"
 
 main = runV $ do
@@ -54,19 +55,27 @@ main = runV $ do
     rooms  <- Korppi.reservations cookie time
     let currentLocalTime = localTimeOfDay . utcToLocalTime timeZone $ time
         output Plain = mapM_ print 
-        output Html  = mapM_ B.putStrLn . map (renderHtml . htmlFormat)
-        filt All      = id
-        filt Starting = filter (\(Korppi.time -> (a,b)) -> a >= currentLocalTime) 
-        filt Ongoing  = filter (\(Korppi.time -> (a,b)) -> a <= currentLocalTime
-                                                           && currentLocalTime <= b ) 
-             
+        output Html  = mapM_ B.putStrLn . map (renderHtml . (\x -> htmlFormat (toValue . show $ classifyTime currentLocalTime x) x)) -- This is slightly ugly
+        filt Nothing  = id
+        filt (Just r) = filter (\evt -> classifyTime currentLocalTime evt == r)
     liftIO $ output format
              . take n 
              . sortBy (compare`on` Korppi.time) 
              . filt filtering
              $ rooms
 
-htmlFormat (Korppi.EVT{..}) = H.div $ do
+data RoughTime = Ended | Ongoing | Starting | Upcoming deriving (Eq,Ord,Show,Enum,Data,Typeable)
+
+classifyTime currentLocalTime e
+    | start < currentLocalTime && currentLocalTime < end  
+        = Ongoing
+    | start > currentLocalTime && start < addMinutes 15 currentLocalTime = Starting
+    | start >= currentLocalTime = Upcoming
+    | end < currentLocalTime = Ended
+    | otherwise = Upcoming
+        where (start,end) = Korppi.time e
+
+htmlFormat cls (Korppi.EVT{..}) = H.div ! class_ cls $ do
             H.span ! class_ "room"  $ H.toHtml room
             H.span ! class_ "time"  $ H.toHtml (st (fst time) ++ " - " ++ st (snd time))
             H.span ! class_ "event" $ H.toHtml (T.intercalate " " . catMaybes $ [course , event])
