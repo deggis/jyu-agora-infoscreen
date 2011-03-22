@@ -1,0 +1,38 @@
+Name:                Vaksitin
+Version:             0.1
+Synopsis:            Simple tool for fetching room reservations in agora
+
+License:             AllRightsReserved
+License-file:        LICENSE
+
+Author:              Ville Tirronen
+
+Maintainer:          aleator@gmail.com
+
+Copyright:           Ville Tirronen 2011
+
+Category:            Web
+
+Build-type:          Simple
+
+-- Constraint on the version of Cabal needed to build this package.
+Cabal-version:       >=1.2
+
+
+Executable Vaksitin
+   Main-is: FetchHall.hs
+  
+  Packages needed in order to build this package.
+  Build-depends: base >4 && < 5
+                ,mtl > 2 && < 3
+                ,haskeline > 0.6.4 && < 0.6.5
+                ,old-locale > 1 && < 2
+                ,cmdargs >= 0.6 && < 0.7      
+                ,time
+                ,blaze-html >= 0.4 && < 0.5 
+                ,curl >= 1.3 && < 1.4
+                ,text >= 0.11 && < 0.12
+                ,bytestring >= 0.9.1 && < 1
+                  
+  Other-modules: VMonad, Korppi, Utils
+  

@@ -7,6 +7,8 @@ import Control.Monad.Error
 import Control.Monad.Writer
 import Control.Monad.Trans
 
+-- newtype VaksiMonadPure a = WP (VaksiMonad a) deriving (Monad,MonadPlus,Functor)
+
 newtype VaksiMonad a = W (ErrorT String (WriterT [String] IO) a) deriving (MonadIO,MonadPlus,Functor)
 instance Monad VaksiMonad where
     return a = W $ return a
@@ -16,7 +18,7 @@ instance Monad VaksiMonad where
                        br
     fail str = W $ lift (tell [str]) >> (throwError str)
 
-note :: String -> VaksiMonad ()
+--note :: String -> VaksiMonad ()
 note = W . lift . tell . box
 
 
@@ -29,3 +31,6 @@ runV (W a) = do
          case r of
             Left e -> fail ("caught: "++e++show w)
             Right v -> return v
+
+--runV (WP a) = do
+--         (r,w) <- runErrorT $ a 

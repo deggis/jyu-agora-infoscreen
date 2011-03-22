@@ -1,4 +1,5 @@
 {-#LANGUAGE ScopedTypeVariables, ViewPatterns, RecordWildCards, OverloadedStrings#-}
+-- | This module provides means to log into the Korppi system and fetch classroom reservations
 module Korppi (login, reservations, Event(..)) where
 import Network.Curl
 import Network.Curl.Easy
@@ -16,6 +17,7 @@ import Control.Monad
 import Control.Monad.Trans
 
 import Utils
+import VMonad
 
 -- |Url where you get the session cookie
 loginURL = "https://korppi.jyu.fi/kotka/servlet/authentication/checkLogin"
@@ -33,6 +35,8 @@ curling :: (MonadIO m) => (IO a) -> m a
 curling = liftIO . withCurlDo
 
 -- |Get a list of reservations in agora at a given day.
+reservations
+  :: (FormatTime t, MonadIO m, MonadPlus m, Functor m) => [Char] -> t -> m [Event]
 reservations sessionCookie time = do 
     t :: ByteStringResponse <- curling $ curlGetResponse_ (classroomListURL time time) 
                                           [CurlHttpHeaders ["Cookie:"++sessionCookie]]
@@ -40,17 +44,20 @@ reservations sessionCookie time = do
     readColumns rooms >>= mapM Korppi.parseEvent
 
 -- |Exhange account and password for a session cookie.
+login :: [Char] -> [Char] -> VaksiMonad String
 login account password = do
     resp  :: CurlResponse <- curling $ curlGetResponse_ loginURL
                                         [CurlPostFields ["account=" ++account
                                                         ,"password="++password]]
-    m2e "Login failed" $ lookup "Set-Cookie" $ respHeaders resp 
+    note (show $ respHeaders resp)
+    note (show $ respBody resp)
+    m2e ("Login failed") $ lookup "Set-Cookie" $ respHeaders resp 
 
 
 -- Parsing
 -- |Data type for class room reservations
 data Event = EVT {room :: T.Text
-                 ,date :: Day
+              --   ,date :: Day
                  ,time :: (TimeOfDay,TimeOfDay)
                  ,course :: Maybe T.Text
                  ,event  :: Maybe T.Text} 
@@ -58,7 +65,7 @@ data Event = EVT {room :: T.Text
 
 parseEvent e = do
       room <- look "Sali" 
-      date <- look "Pvm"  >>= (parseDay `tag` ("parsing " ++ show e))
+--      date <- look "Pvm"  >>= (parseDay `tag` ("parsing " ++ show e))
       time <- look "Klo"  >>= (parseTimeRange `tag` ("parsing "++show e))
       let course = look "Kurssi" 
       let event  = look "Tapahtuma" 
