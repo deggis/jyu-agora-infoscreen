@@ -13,6 +13,7 @@ import Data.Time.LocalTime
 import Data.Time.Format
 import Data.Time.Calendar
 import Data.Time.Clock
+import Data.Monoid
 import System.Locale
 import Control.Applicative
 import Control.Monad
@@ -55,7 +56,7 @@ main = runV $ do
     rooms  <- Korppi.reservations cookie time
     let currentLocalTime = localTimeOfDay . utcToLocalTime timeZone $ time
         output Plain = mapM_ print 
-        output Html  = mapM_ B.putStrLn . map (renderHtml . (\x -> htmlFormat (toValue . show $ classifyTime currentLocalTime x) x)) -- This is slightly ugly
+        output Html  = B.putStrLn . renderHtml . H.table . mconcat . map ((\x ->  htmlFormat (toValue . show $ classifyTime currentLocalTime x) x)) -- This is slightly ugly
         filt Nothing  = id
         filt (Just r) = filter (\evt -> classifyTime currentLocalTime evt == r)
     liftIO $ output format
@@ -75,10 +76,10 @@ classifyTime currentLocalTime e
     | otherwise = Upcoming
         where (start,end) = Korppi.time e
 
-htmlFormat cls (Korppi.EVT{..}) = H.div ! class_ cls $ do
-            H.span ! class_ "room"  $ H.toHtml room
-            H.span ! class_ "time"  $ H.toHtml (st (fst time) ++ " - " ++ st (snd time))
-            H.span ! class_ "event" $ H.toHtml (T.intercalate " " . catMaybes $ [course , event])
+htmlFormat cls (Korppi.EVT{..}) = H.tr ! class_ cls $ do
+            H.tr ! class_ "room"  $ H.toHtml room
+            H.tr ! class_ "time"  $ H.toHtml (st (fst time) ++ " - " ++ st (snd time))
+            H.tr ! class_ "event" $ H.toHtml (T.intercalate " " . catMaybes $ [course , event])
     where 
         s :: Show a => a -> T.Text
         s = T.pack . show
