@@ -77,9 +77,9 @@ classifyTime currentLocalTime e
         where (start,end) = Korppi.time e
 
 htmlFormat cls (Korppi.EVT{..}) = H.tr ! class_ cls $ do
-            H.tr ! class_ "room"  $ H.toHtml room
-            H.tr ! class_ "time"  $ H.toHtml (st (fst time) ++ " - " ++ st (snd time))
-            H.tr ! class_ "event" $ H.toHtml (T.intercalate " " . catMaybes $ [course , event])
+            H.td ! class_ "room"  $ H.toHtml room
+            H.td ! class_ "time"  $ H.toHtml (st (fst time) ++ " - " ++ st (snd time))
+            H.td ! class_ "event" $ H.toHtml (T.intercalate " " . catMaybes $ [course , event])
     where 
         s :: Show a => a -> T.Text
         s = T.pack . show
