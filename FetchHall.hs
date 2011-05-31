@@ -54,11 +54,13 @@ main = runV $ do
     cookie <- Korppi.login account pass
     rooms  <- Korppi.reservations cookie time
     let currentLocalTime = localTimeOfDay . utcToLocalTime timeZone $ time
-        output Plain = mapM_ print 
-        output Html  = B.putStrLn . renderHtml . H.table . mconcat 
-                                  . map (\x -> htmlFormat (toValue . show 
-                                                                    . classifyTime currentLocalTime
-                                                                    $ x) x) -- This is slightly ugly
+        output :: Format -> [Korppi.Event] -> IO ()
+        output Plain = mapM_ print
+        output Html  = B.putStrLn . renderHtml . H.table . (tableHeader `mappend`) . H.tbody . tableBody
+        tableBody :: [Korppi.Event] -> H.Html
+        tableBody  =  mconcat . map ((\x -> htmlFormat (toValue . show . classifyTime currentLocalTime $ x) 
+                                                       x)) -- This is slightly ugly
+                                                                    
         filt Nothing  = id
         filt (Just r) = filter (\evt -> classifyTime currentLocalTime evt == r)
 
@@ -79,11 +81,13 @@ classifyTime currentLocalTime e
     | otherwise = Upcoming
         where (start,end) = Korppi.time e
 
+tableHeader = H.thead . H.tr . mconcat $ map H.th ["Sali/Room","Aika/Time","Koodi/Code","Tapahtuma/Event"]
+
 htmlFormat cls (Korppi.EVT{..}) = H.tr ! class_ cls $ do
             H.td ! class_ "room"  $ H.toHtml room
             H.td ! class_ "time"  $ H.toHtml (st (fst time) ++ " - " ++ st (snd time))
-            H.td ! class_ "course" $ H.toHtml (fromMaybe "&nbsp;" course)
-            H.td ! class_ "event"  $ H.toHtml (fromMaybe "&nbsp;" event)
+            H.td ! class_ "course" $ H.toHtml (fromMaybe "" course)
+            H.td ! class_ "event" $ H.toHtml (fromMaybe "" event)
     where 
         s :: Show a => a -> T.Text
         s = T.pack . show
