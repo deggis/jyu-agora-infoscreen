@@ -81,7 +81,13 @@ classifyTime currentLocalTime e
     | otherwise = Upcoming
         where (start,end) = Korppi.time e
 
-tableHeader = H.thead . H.tr . mconcat $ map H.th ["Sali/Room","Aika/Time","Koodi/Code","Tapahtuma/Event"]
+--tableHeader = H.thead . H.tr . mconcat $ map H.th ["Sali/Room","Aika/Time","Koodi/Code","Tapahtuma/Event"]
+tableHeader = H.thead . H.tr $ do
+            H.th ! class_ "room" $ H.toHtml ("Sali/Room" :: String)
+            H.th ! class_ "time" $ H.toHtml ("Aika/Time" :: String)
+            H.th ! class_ "course" $ H.toHtml ("Koodi/Code" :: String)
+            H.th ! class_ "event" $ H.toHtml ("Tapahtuma/Event" :: String)
+
 
 htmlFormat cls (Korppi.EVT{..}) = H.tr ! class_ cls $ do
             H.td ! class_ "room"  $ H.toHtml room
