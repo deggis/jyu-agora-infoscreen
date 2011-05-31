@@ -31,12 +31,12 @@ classroomListURL f t = "https://korppi.jyu.fi/kotka/reservation/reportOrgShow.js
 -- |Shorthand for when we want ByteStrings out of Curl.
 type ByteStringResponse = CurlResponse_ [(String,String)] B.ByteString
 
-curling :: (MonadIO m) => (IO a) -> m a
+curling :: (MonadIO m) => IO a -> m a
 curling = liftIO . withCurlDo
 
 -- |Get a list of reservations in agora at a given day.
 reservations
-  :: (FormatTime t, MonadIO m, MonadPlus m, Functor m) => [Char] -> t -> m [Event]
+  :: (FormatTime t, MonadIO m, MonadPlus m, Functor m) => String -> t -> m [Event]
 reservations sessionCookie time = do 
     t :: ByteStringResponse <- curling $ curlGetResponse_ (classroomListURL time time) 
                                           [CurlHttpHeaders ["Cookie:"++sessionCookie]]
@@ -44,14 +44,14 @@ reservations sessionCookie time = do
     readColumns rooms >>= mapM Korppi.parseEvent
 
 -- |Exhange account and password for a session cookie.
-login :: [Char] -> [Char] -> VaksiMonad String
+login :: String -> String -> VaksiMonad String
 login account password = do
     resp  :: CurlResponse <- curling $ curlGetResponse_ loginURL
                                         [CurlPostFields ["account=" ++account
                                                         ,"password="++password]]
     note (show $ respHeaders resp)
     note (show $ respBody resp)
-    m2e ("Login failed") $ lookup "Set-Cookie" $ respHeaders resp 
+    m2e "Login failed" $ lookup "Set-Cookie" $ respHeaders resp 
 
 
 -- Parsing
@@ -69,7 +69,7 @@ parseEvent e = do
       time <- look "Klo"  >>= (parseTimeRange `tag` ("parsing "++show e))
       let course = look "Kurssi" 
       let event  = look "Tapahtuma" 
-      return $ EVT{..}
+      return EVT{..}
     where look a = m2e ("Missing field: "++T.unpack a) . lookup a $ e
 
 readColumns :: (Monad m) => T.Text -> m [[(T.Text, T.Text)]]
