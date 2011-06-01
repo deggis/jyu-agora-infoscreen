@@ -39,11 +39,11 @@ data Fetch = Fetch {account ::String
                    , format :: Format
                    , filtering :: Maybe RoughTime } deriving (Data,Typeable)
 
-arguments = cmdArgsMode $ Fetch {account = "" &= help "account"
-                                ,n      = 5  &= help "output N next events"
+arguments = cmdArgsMode $ Fetch {account = ""  &= help "account"
+                                ,n      = 5    &= help "output N next events"
                                 ,format = Html &= help "output format (plain | html)"
                                 ,filtering = Nothing
-                                    &= help "filter events ( ended | ongoing | starting | upcoming)"
+                                               &= help "filter events ( ended | ongoing | starting | upcoming)"
                                 } &= summary "Fetch classroom reservations from Korppi"
 
 main = runV $ do
@@ -56,10 +56,8 @@ main = runV $ do
     let currentLocalTime = localTimeOfDay . utcToLocalTime timeZone $ time
         output :: Format -> [Korppi.Event] -> IO ()
         output Plain = mapM_ print
-        output Html  = B.putStrLn . renderHtml . H.table . (tableHeader `mappend`) . H.tbody . tableBody
-        tableBody :: [Korppi.Event] -> H.Html
-        tableBody  =  mconcat . map ((\x -> htmlFormat (toValue . show . classifyTime currentLocalTime $ x) 
-                                                       x)) -- This is slightly ugly
+        output Html  = B.putStrLn . renderHtml . H.table . (tableHeader `mappend`) . H.tbody . mconcat . map row
+        row x = htmlFormat (toValue . show . classifyTime currentLocalTime $ x) x
                                                                     
         filt Nothing  = id
         filt (Just r) = filter (\evt -> classifyTime currentLocalTime evt == r)
@@ -81,20 +79,22 @@ classifyTime currentLocalTime e
     | otherwise = Upcoming
         where (start,end) = Korppi.time e
 
---tableHeader = H.thead . H.tr . mconcat $ map H.th ["Sali/Room","Aika/Time","Koodi/Code","Tapahtuma/Event"]
 tableHeader = H.thead . H.tr $ do
-            H.th ! class_ "room" $ H.toHtml ("Sali/Room" :: String)
-            H.th ! class_ "time" $ H.toHtml ("Aika/Time" :: String)
-            H.th ! class_ "course" $ H.toHtml ("Koodi/Code" :: String)
-            H.th ! class_ "event" $ H.toHtml ("Tapahtuma/Event" :: String)
+            cell "room"    "Sali/Room" 
+            cell "time"    "Aika/Time" 
+            cell "course"  "Koodi/Code" 
+            cell "event"   "Tapahtuma/Event"
+    where 
+        cell label elem = H.th ! class_ label $ elem
 
 
 htmlFormat cls (Korppi.EVT{..}) = H.tr ! class_ cls $ do
-            H.td ! class_ "room"  $ H.toHtml room
-            H.td ! class_ "time"  $ H.toHtml (st (fst time) ++ " - " ++ st (snd time))
-            H.td ! class_ "course" $ H.toHtml (fromMaybe "" course)
-            H.td ! class_ "event" $ H.toHtml (fromMaybe "" event)
+            cell "room"   $ room
+            cell "time"   $ st (fst time) ++ " - " ++ st (snd time)
+            cell "course" $ fromMaybe "" course
+            cell "event"  $ fromMaybe "" event
     where 
+        cell label elem = H.td ! class_ label $ H.toHtml elem
         s :: Show a => a -> T.Text
         s = T.pack . show
         st = formatTime defaultTimeLocale "%R"
