@@ -25,6 +25,9 @@ note = W . lift . tell . box
 box :: t -> [t]
 box x = [x]
 
+--executeV :: VaksiMonad a ->  (Either String a, [String])
+executeV (W a) = runWriterT . runErrorT $ a
+
 runV :: VaksiMonad a -> IO a
 runV (W a) = do
          (r,w) <- runWriterT . runErrorT $ a 

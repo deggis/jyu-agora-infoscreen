@@ -31,6 +31,7 @@ import qualified Text.Blaze.Html5 as H
 import Text.Blaze.Html5.Attributes (class_)
 
 import System.Console.CmdArgs
+import System.Exit
 
 data Format = Plain | Html deriving (Data,Typeable,Eq)
 
@@ -46,27 +47,52 @@ arguments = cmdArgsMode $ Fetch {account = ""  &= help "account"
                                                &= help "filter events ( ended | ongoing | starting | upcoming)"
                                 } &= summary "Fetch classroom reservations from Korppi"
 
-main = runV $ do
+main = do
     Fetch{..} <- liftIO $ cmdArgsRun arguments
-    time <- liftIO getCurrentTime 
+    
+    -- Set up time related stuff
+    time <- getCurrentTime 
     timeZone <- liftIO getCurrentTimeZone
-    Just pass <- liftIO $ runInputT defaultSettings $ getPassword (Just '*') "password: "
-    cookie <- Korppi.login account pass
-    rooms  <- Korppi.reservations cookie time
     let currentLocalTime = localTimeOfDay . utcToLocalTime timeZone $ time
-        output :: Format -> [Korppi.Event] -> IO ()
-        output Plain = mapM_ print
-        output Html  = B.putStrLn . renderHtml . H.table . (tableHeader `mappend`) . H.tbody . mconcat . map row
-        row x = htmlFormat (toValue . show . classifyTime currentLocalTime $ x) x
-                                                                    
-        filt Nothing  = id
-        filt (Just r) = filter (\evt -> classifyTime currentLocalTime evt == r)
 
-    liftIO $ output format
-             . take n 
-             . sortBy (compare`on` Korppi.time) 
-             . filt filtering
-             $ rooms
+    -- Fetch stuff from korppi
+    (r,w) <- executeV $ do
+        Just pass <- liftIO $ runInputT defaultSettings $ getPassword (Just '*') "password: "
+        cookie <- Korppi.login account pass
+        rooms  <- Korppi.reservations cookie time
+        return rooms
+
+    -- Handle errors
+    case r of
+        Left  err   -> print "poks"
+        Right rooms -> output currentLocalTime format
+                         . take n 
+                         . sortBy (compare`on` Korppi.time) 
+                         . filt currentLocalTime filtering
+                         $ rooms
+ where
+    error Plain (e,w) = do 
+                         putStrLn $ "ERROR: "++show e++" | "++show w 
+                         exitWith (ExitFailure 1)
+    error Html  (e,w) = do
+                         B.putStrLn . renderHtml $ 
+                          H.div ! class_ "error-msg" $ (H.p (H.toHtml . T.pack $ show e) >> 
+                                                        H.p (H.toHtml . T.pack $ show w))
+
+                         exitWith (ExitFailure 1)
+                            
+    output _   Plain = mapM_ print
+    output clt Html  = B.putStrLn . renderHtml 
+                              . H.table 
+                              . (tableHeader `mappend`) 
+                              . H.tbody 
+                              . mconcat 
+                              . map (row clt)
+    row clt x = htmlFormat (toValue . show . classifyTime clt $ x) x
+                                                                
+    filt clt Nothing  = id
+    filt clt (Just r) = filter (\evt -> classifyTime clt evt == r)
+
 
 data RoughTime = Ended | Ongoing | Starting | Upcoming deriving (Eq,Ord,Show,Enum,Data,Typeable)
 
