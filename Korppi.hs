@@ -98,10 +98,10 @@ parseEvent e = do
     where look a = m2e ("Missing field: "++T.unpack a) . lookup a $ e
 
 readColumns :: (Monad m) => T.Text -> m [[(T.Text, T.Text)]]
-readColumns x = do 
-            let hd:dash:body = T.lines x
-                c = chnk hd
-            return $ map (rechunk c) (filter (not . T.null) body)
+readColumns x
+    | (hd:dash:body) <-  T.lines x = 
+            return $ map (rechunk (chnk hd)) (filter (not . T.null) body)
+    | otherwise = fail ("Could not parse Korppi response: "++T.unpack x)
 
 parseDay :: (Monad m) => T.Text -> m Day
 parseDay = parseTimeM "%d.%m" 
