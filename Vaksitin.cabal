@@ -25,7 +25,7 @@ Executable Vaksitin
   Packages needed in order to build this package.
   Build-depends: base >4 && < 5
                 ,mtl > 2 && < 3
-                ,haskeline > 0.6.4 && < 0.6.5
+                ,haskeline > 0.6.3 && < 0.6.5
                 ,old-locale > 1 && < 2
                 ,cmdargs >= 0.6 && < 0.7      
                 ,time
