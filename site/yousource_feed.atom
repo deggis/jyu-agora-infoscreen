@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
+  <id>tag:yousource.it.jyu.fi,2005:/activities</id>
+  <link type="text/html" rel="alternate" href="http://yousource.it.jyu.fi"/>
+  <link type="application/atom+xml" rel="self" href="http://yousource.it.jyu.fi/activities.atom"/>
+  <title>YouSource activities</title>
+  <updated>2011-03-25T14:02:28+02:00</updated>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20210</id>
+    <published>2011-03-25T14:02:28+02:00</published>
+    <updated>2011-03-25T14:02:28+02:00</updated>
+    <link type="text/html" rel="alternate" href="/rotating-solar-panels/control"/>
+    <title>Tero J&#228;ntti	pushed 1 commit to rotating-solar-panels/control:master </title>
+    <content type="html">&lt;p class='target-description'&gt;Control logic for automated turning of solar panels.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 14:02 &#8211; &lt;a href="/rotating-solar-panels/control/commit/6b97f8f516c1ed6248d7e7dea607d21b935cad98"&gt;renamed adjust-position to follow-sun.&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Tero J&#228;ntti</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20208</id>
+    <published>2011-03-25T13:59:28+02:00</published>
+    <updated>2011-03-25T13:59:28+02:00</updated>
+    <link type="text/html" rel="alternate" href="/spatial-derivative-analysis-box/controller"/>
+    <title>Jarkko Vilhunen	pushed 1 commit to spatial-derivative-analysis-box/controller:master </title>
+    <content type="html">&lt;p class='target-description'&gt;Control program for the sensor array.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 14:00 &#8211; &lt;a href="/spatial-derivative-analysis-box/controller/commit/99aac6f5de72d8702aa6e3805394ff98651fccb6"&gt;fix typo&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Jarkko Vilhunen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20205</id>
+    <published>2011-03-25T13:58:05+02:00</published>
+    <updated>2011-03-25T13:58:05+02:00</updated>
+    <link type="text/html" rel="alternate" href="/spatial-derivative-analysis-box/controller"/>
+    <title>Jarkko Vilhunen	pushed 2 commits  to spatial-derivative-analysis-box/controller:master</title>
+    <content type="html">&lt;p class='target-description'&gt;Control program for the sensor array.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 13:58 &#8211; &lt;a href="/spatial-derivative-analysis-box/controller/commit/46986d3df98c07de851ab64e8f60f76452a9bdf9"&gt;update description&lt;/a&gt;&lt;/li&gt;&lt;li&gt;25 Mar 13:41 &#8211; &lt;a href="/spatial-derivative-analysis-box/controller/commit/4250b71d52cffb31385b7bac334fc47b86284a7e"&gt;save log opening time to filename&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Jarkko Vilhunen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20202</id>
+    <published>2011-03-25T13:49:33+02:00</published>
+    <updated>2011-03-25T13:49:33+02:00</updated>
+    <link type="text/html" rel="alternate" href="/rotating-solar-panels/control"/>
+    <title>Tero J&#228;ntti	pushed 2 commits  to rotating-solar-panels/control:master</title>
+    <content type="html">&lt;p class='target-description'&gt;Control logic for automated turning of solar panels.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 13:49 &#8211; &lt;a href="/rotating-solar-panels/control/commit/24b6dce2541c419fb78173d0f1137de478d4580c"&gt;Merge branch 'master' of yousource.it.jyu.fi:rotating-solar-panels/control&lt;/a&gt;&lt;/li&gt;&lt;li&gt;25 Mar 13:49 &#8211; &lt;a href="/rotating-solar-panels/control/commit/db8d864f6213a84db756d01a2bbd1b70054f5819"&gt;File names defined.&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Tero J&#228;ntti</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20199</id>
+    <published>2011-03-25T13:46:22+02:00</published>
+    <updated>2011-03-25T13:46:22+02:00</updated>
+    <link type="text/html" rel="alternate" href="/judo/youdata"/>
+    <title>Marko Malinen	pushed 2 commits  to judo/youdata:master</title>
+    <content type="html">&lt;p class='target-description'&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 13:46 &#8211; &lt;a href="/judo/youdata/commit/d4699aef94050caf26c524838fbcf1117ff7fba8"&gt;Merge branch 'dev'&lt;/a&gt;&lt;/li&gt;&lt;li&gt;25 Mar 13:46 &#8211; &lt;a href="/judo/youdata/commit/f6e85a453dad0eec04dd37615b43477a9dca7c92"&gt;navigation between views&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Marko Malinen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20196</id>
+    <published>2011-03-25T13:35:21+02:00</published>
+    <updated>2011-03-25T13:35:21+02:00</updated>
+    <link type="text/html" rel="alternate" href="/rotating-solar-panels/control"/>
+    <title>Ville Salonen	pushed 1 commit to rotating-solar-panels/control:master </title>
+    <content type="html">&lt;p class='target-description'&gt;Control logic for automated turning of solar panels.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 13:35 &#8211; &lt;a href="/rotating-solar-panels/control/commit/9cd8eff82131a1d4cabc44d2d72060af1abba238"&gt;Added step calculation to joystick calibration.&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Ville Salonen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20194</id>
+    <published>2011-03-25T13:31:50+02:00</published>
+    <updated>2011-03-25T13:31:50+02:00</updated>
+    <link type="text/html" rel="alternate" href="/judo/judo-projekti"/>
+    <title>Olli Wirpi	pushed 1 commit to judo/judo-projekti:master </title>
+    <content type="html">&lt;p class='target-description'&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 13:31 &#8211; &lt;a href="/judo/judo-projekti/commit/6f2d90f394933a7abbb18b825d39e81b30edff8f"&gt;Muutama korjaus&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Olli Wirpi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20192</id>
+    <published>2011-03-25T13:26:57+02:00</published>
+    <updated>2011-03-25T13:26:57+02:00</updated>
+    <link type="text/html" rel="alternate" href="/judo/judo-projekti"/>
+    <title>Olli Wirpi	pushed 1 commit to judo/judo-projekti:master </title>
+    <content type="html">&lt;p class='target-description'&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 13:26 &#8211; &lt;a href="/judo/judo-projekti/commit/ad2e8d9effa08e45e4a8b11a57bb40f19c6e4ffe"&gt;1. katselmoinnin muistio&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Olli Wirpi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20190</id>
+    <published>2011-03-25T13:26:34+02:00</published>
+    <updated>2011-03-25T13:26:34+02:00</updated>
+    <link type="text/html" rel="alternate" href="/spatial-derivative-analysis-box/controller"/>
+    <title>Jarkko Vilhunen	pushed 1 commit to spatial-derivative-analysis-box/controller:master </title>
+    <content type="html">&lt;p class='target-description'&gt;Control program for the sensor array.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 13:27 &#8211; &lt;a href="/spatial-derivative-analysis-box/controller/commit/f31aa6fd462e7816aa7b25e3afa31cd562d3fb48"&gt;forgot to record timepoints for sensor values somehow. record them as mi...&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Jarkko Vilhunen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20187</id>
+    <published>2011-03-25T13:06:02+02:00</published>
+    <updated>2011-03-25T13:06:02+02:00</updated>
+    <link type="text/html" rel="alternate" href="/rotating-solar-panels/control"/>
+    <title>Ville Salonen	pushed 2 commits  to rotating-solar-panels/control:master</title>
+    <content type="html">&lt;p class='target-description'&gt;Control logic for automated turning of solar panels.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 13:05 &#8211; &lt;a href="/rotating-solar-panels/control/commit/2fdda94f749f4446e4703c31c115617d08a01973"&gt;Merged.&lt;/a&gt;&lt;/li&gt;&lt;li&gt;25 Mar 13:01 &#8211; &lt;a href="/rotating-solar-panels/control/commit/d6ea0418762f0ec21066b9435d0adcd8ba24f05a"&gt;Moved printing of soft limit warnings to motor_control.&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Ville Salonen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20180</id>
+    <published>2011-03-25T12:39:07+02:00</published>
+    <updated>2011-03-25T12:39:07+02:00</updated>
+    <link type="text/html" rel="alternate" href="/rotating-solar-panels/control"/>
+    <title>Tero J&#228;ntti	pushed 4 commits  to rotating-solar-panels/control:master</title>
+    <content type="html">&lt;p class='target-description'&gt;Control logic for automated turning of solar panels.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 12:38 &#8211; &lt;a href="/rotating-solar-panels/control/commit/4c52d40e5726e376f4a19598247516f5a44e0df2"&gt;Merge branch 'master' of yousource.it.jyu.fi:rotating-solar-panels/control&lt;/a&gt;&lt;/li&gt;&lt;li&gt;25 Mar 12:38 &#8211; &lt;a href="/rotating-solar-panels/control/commit/8467977b075889c0125efde3b7235ae2ece9c9d5"&gt;adjust-position rotates the panel.&lt;/a&gt;&lt;/li&gt;&lt;li&gt;25 Mar 12:37 &#8211; &lt;a href="/rotating-solar-panels/control/commit/05cf75ce52668d9fbc44027dcd6bc0f658654a02"&gt;rotate functions that accept a negative number.&lt;/a&gt;&lt;/li&gt;&lt;li&gt;25 Mar 12:09 &#8211; &lt;a href="/rotating-solar-panels/control/commit/aed4586454863bddd8319ab5bd3484797ef0a642"&gt;Gear ratios are read from settings file.&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Tero J&#228;ntti</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20173</id>
+    <published>2011-03-25T12:18:58+02:00</published>
+    <updated>2011-03-25T12:18:58+02:00</updated>
+    <link type="text/html" rel="alternate" href="/rotating-solar-panels/control"/>
+    <title>Ville Salonen	pushed 4 commits  to rotating-solar-panels/control:master</title>
+    <content type="html">&lt;p class='target-description'&gt;Control logic for automated turning of solar panels.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 12:18 &#8211; &lt;a href="/rotating-solar-panels/control/commit/9e6a9401cf6fafac478579dffe19e87beca48aaf"&gt;Merge branch 'master' of yousource.it.jyu.fi:rotating-solar-panels/control&lt;/a&gt;&lt;/li&gt;&lt;li&gt;25 Mar 12:17 &#8211; &lt;a href="/rotating-solar-panels/control/commit/7ac0d6acc9fc5c6ac0d1f19be48cda49a2692226"&gt;Renamed range calibration.&lt;/a&gt;&lt;/li&gt;&lt;li&gt;25 Mar 12:09 &#8211; &lt;a href="/rotating-solar-panels/control/commit/9e225e25dc3ee1b5b65e533f177fc4f1d6e19460"&gt;Calibration saves ranges to text file.&lt;/a&gt;&lt;/li&gt;&lt;li&gt;25 Mar 11:13 &#8211; &lt;a href="/rotating-solar-panels/control/commit/71942e7d61f1c694339ead0ddcb05d1749b9a898"&gt;Fixed range calibration.&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Ville Salonen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20171</id>
+    <published>2011-03-25T12:08:06+02:00</published>
+    <updated>2011-03-25T12:08:06+02:00</updated>
+    <link type="text/html" rel="alternate" href="/spatial-derivative-analysis-box/controller"/>
+    <title>Jarkko Vilhunen	pushed 1 commit to spatial-derivative-analysis-box/controller:master </title>
+    <content type="html">&lt;p class='target-description'&gt;Control program for the sensor array.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;25 Mar 12:08 &#8211; &lt;a href="/spatial-derivative-analysis-box/controller/commit/411b5012401389d5024afbead64a4774c5fc13df"&gt;output correct binary data&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Jarkko Vilhunen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>tag:yousource.it.jyu.fi,2005:Event/20165</id>
+    <published>2011-03-25T11:59:27+02:00</published>
+    <updated>2011-03-25T11:59:27+02:00</updated>
+    <link type="text/html" rel="alternate" href="/vrp-diss/vrp-diss"/>
+    <title>Antoine Kalmbach	pushed 1 commit to vrp-diss/vrp-diss:master </title>
+    <content type="html">&lt;p class='target-description'&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;24 Mar 13:07 &#8211; &lt;a href="/vrp-diss/vrp-diss/commit/8a6338cb72cc9b5ef0effa512041f583fd257ebf"&gt;What just happened?&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+    <author>
+      <name>Antoine Kalmbach</name>
+    </author>
+  </entry>
+</feed>

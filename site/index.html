@@ -1,0 +1,154 @@
+B1;2601;0c<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Agora</title>
+
+  <link rel="stylesheet" href="./css/agora.css" type="text/css"/>
+  <link rel="stylesheet" href="./css/yousource.css" type="text/css"/>
+
+  <script type="text/javascript" src="./js/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="./js/jquery.cycle.all.js"></script>
+	<script type="text/javascript" src="./js/jquery-print.js"></script>
+  <script type="text/javascript" src="./js/jquery.batchImageLoad.js"></script>
+  <script type="text/javascript" src="./js/jquery.doubletap-0.1.js"></script>
+  <script type="text/javascript" src="./js/json2.js"></script> 
+  <script type="text/javascript" src="./js/jquery.jfeed.pack.js"></script>
+  <style type="text/css">
+body {
+  height: 100%;
+}
+
+div#slides {
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+/*  border: 1px solid #000; */
+  position: relative;
+  display: block;
+  position: absolute;
+}
+div.slide {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+  </style>
+
+</head>
+
+<body>
+<div id="slides">
+
+  <div class="slide epicpix">
+    <img src="./img/agora_vuoret.jpg" />
+  </div> 
+
+<div id="ongoing" class="slide"></div>
+
+<div id="upcoming" class="slide"></div>
+
+
+  <div class="slide" id="yousource_slide">
+    <div id="yousource_box">
+    <div id="yousource_header">
+      <img src="./img/yousource.png" />
+      <p class='info'>Showing newest commits realtime from: <span class='url'>http://yousource.it.jyu.fi</span></p> 
+    </div>
+
+    <div id="yousource_bar">
+      &nbsp;
+    </div>
+    <div id="yousource_content">
+      <div id="pushes">
+        &nbsp;
+      </div>
+    </div>
+    </div>
+  </div>
+
+<a href="#" id="show_next">Next</a>
+
+</div>
+
+<script type="text/javascript">
+
+var slide_time = 20000;
+var korppi_slide_timeout = slide_time - 2000;
+
+$("#ongoing").each(function(index) { $(this).load("./_partial_ongoing.html"); });
+$("#upcoming").each(function(index) { $(this).load("./_partial_upcoming.html"); });
+
+beforeSlideChange();
+afterSlideChange();
+
+
+function beforeSlideChange() {
+  $("#ongoing_content").empty();
+  $("#upcoming_content").empty();
+}
+
+function afterSlideChange() {
+  // Chewing bubblegum.
+
+  $("#ongoing_content").load("./ongoing.html", function() {
+    $(".Ongoing:odd").addClass("Ongoing_dark");
+    $("#ongoing_content").children().each( function(index) { $(this).animate({opacity:'show'}, index*250); });
+    setTimeout(function() {
+      $("#ongoing_content").children().each( function(index) { $(this).animate({opacity:'0.01'}, index*100); });
+    }, korppi_slide_timeout);
+  });
+
+  $("#upcoming_content").load("./upcoming.html", function() {
+    $(".Upcoming:odd").addClass("Upcoming_dark");
+    $("#upcoming_content").children().each( function(index) { $(this).animate({opacity:'show'}, index*250); });
+    setTimeout(function() {
+     $("#upcoming_content").delay(8000).children().each( function(index) { $(this).animate({opacity:'0.01'}, index*100); });
+    }, korppi_slide_timeout);
+  });
+  updateYousourceFeed();
+}
+
+$("div#slides").cycle({
+ fx: 'fade',
+ before: beforeSlideChange,
+ after: afterSlideChange,
+ timeout: 0,
+ next: '#next'
+});
+
+function updateYousourceFeed() {
+              $.getFeed({
+                  url: "./yousource_feed.atom"
+                  ,success: function(feed) {
+                  $('#yousource_content').empty();
+                   for (var i=0; i < feed.items.length && i<5; i++)
+                   {
+                    it = feed.items[i];
+                    note= $("<div class='feed'></div>");
+                    var pusher_info = it.title.split('\t');
+                    var date_n_time = it.updated.split('T');
+                    var time = date_n_time[1].split(':');
+                    note.append("<h3>"+"<span class='user'>"+pusher_info[0]+"</span> "+pusher_info[1]+"</h3>");
+                    note.append("<span class='timestamp'>"+date_n_time[0]+" – "+time[0]+":"+time[1]+"</span>");
+                    note.append(it.description);
+                    $('#yousource_content').append(note)
+                   }
+                  }
+                  });
+}
+</script>
+</div>
+</div>
+</div>
+
+</body>
+</html>
+ 

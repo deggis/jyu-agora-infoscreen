@@ -1,0 +1,81 @@
+body {
+  background:none repeat scroll 0 0 #2d2d2d;
+}
+
+#slides {
+  font-family: Tahoma;
+  font-size: 200%;
+}
+
+.slide iframe {
+/*  height: 100% */
+  width: 100%;
+  float: left;
+  position: relative;
+}
+
+.room {
+  clear: left;
+  float: left;
+  width: 10em;
+}
+.time {
+  float: left;
+  width: 9em;
+}
+.event {
+  float: left;
+  position: relative;
+}
+
+h2 {
+  margin-left: 30px;
+  padding-top: 10px;
+}
+
+.korppi_rows div {
+/*  position: relative; */
+  float: left;
+  width: 100%;
+  display: none;
+}
+
+.clearing_row {
+  clear: left;
+}
+
+.epicpix {
+  text-align: center;
+}
+.epicpix img {
+  width: 100%;
+}
+
+.korppi_header {
+  font-weight: bold;
+}
+
+.korppi_content {
+  -moz-border-radius: 10px/*{cornerRadius}*/;
+  -webkit-border-radius: 10px/*{cornerRadius}*/;
+  border-radius: 10px/*{cornerRadius}*/;
+  font-size: 170%;
+  min-height: 18em;
+  background-color: #ddd;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Ended {
+  background-color: #faa;
+}
+.Ongoing       { background-color: #afa; } 
+.Ongoing_dark  { background-color: #8e8; }
+.Upcoming      { background-color: #ffa; } 
+.Upcoming_dark { background-color: #dd7; }
+
+
+.korppiHeader {
+  font-weight: bold;
+}
